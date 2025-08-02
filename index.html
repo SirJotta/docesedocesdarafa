@@ -1,0 +1,619 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Doces & Doces da Rafa - Cardápio</title>
+    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+    <style>
+        @import url("https://fonts.googleapis.com/css2?family=Pacifico&family=Quicksand:wght@400;700&display=swap");
+        
+        body {
+            font-family: "Quicksand", sans-serif;
+            background: linear-gradient(135deg, #FFF8DC 0%, #FFFFFF 100%);
+            min-height: 100vh;
+        }
+        
+        .title {
+            font-family: "Pacifico", cursive;
+            color: #D4AF37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .subtitle {
+            font-family: "Pacifico", cursive;
+            color: #40E0D0;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .description {
+            color: #3C1414;
+            line-height: 1.6;
+        }
+        
+        .candy-decoration {
+            position: fixed;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            z-index: 0;
+        }
+        
+        .candy-1 {
+            background-color: #D4AF37;
+            top: 10%;
+            left: 5%;
+        }
+        
+        .candy-2 {
+            background-color: #40E0D0;
+            bottom: 15%;
+            right: 10%;
+        }
+        
+        .candy-3 {
+            background-color: #D4AF37;
+            top: 20%;
+            right: 15%;
+        }
+        
+        .candy-4 {
+            background-color: #40E0D0;
+            bottom: 10%;
+            left: 15%;
+        }
+        
+        .star {
+            position: fixed;
+            color: #D4AF37;
+            font-size: 16px;
+            z-index: 0;
+        }
+        
+        .star-1 {
+            top: 15%;
+            left: 20%;
+        }
+        
+        .star-2 {
+            bottom: 25%;
+            right: 25%;
+        }
+        
+        .star-3 {
+            top: 30%;
+            right: 30%;
+        }
+        
+        .product-card {
+            background-color: white;
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease;
+            margin-bottom: 2rem;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .product-image {
+            border-radius: 15px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 300px;
+            height: 250px;
+            object-fit: cover;
+        }
+        
+        .weight-badge {
+            background-color: #D4AF37;
+            color: white;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-weight: bold;
+            display: inline-block;
+            font-size: 0.875rem;
+        }
+        
+        .feature-badge {
+            background-color: #40E0D0;
+            color: #3C1414;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-weight: bold;
+            display: inline-block;
+            margin-right: 10px;
+            margin-bottom: 10px;
+            font-size: 0.875rem;
+        }
+        
+        .contact-icon {
+            color: #40E0D0;
+            font-size: 1.5rem;
+            margin-right: 0.5rem;
+        }
+        
+        .nav-link {
+            color: #3C1414;
+            text-decoration: none;
+            font-weight: bold;
+            padding: 8px 16px;
+            border-radius: 25px;
+            transition: all 0.3s ease;
+            font-size: 0.9rem;
+        }
+        
+        .nav-link:hover {
+            background-color: #D4AF37;
+            color: white;
+        }
+        
+        .section {
+            min-height: auto;
+            padding: 60px 0;
+        }
+        
+        .action-button {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            padding: 12px 24px;
+            border-radius: 30px;
+            font-size: 1rem;
+            font-weight: bold;
+            color: white;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            margin: 8px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            width: 100%;
+            max-width: 280px;
+        }
+        
+        .action-button.whatsapp {
+            background-color: #25D366;
+        }
+        
+        .action-button.whatsapp:hover {
+            background-color: #1DA851;
+        }
+        
+        .action-button.ifood {
+            background-color: #EA1D2C;
+        }
+        
+        .action-button.ifood:hover {
+            background-color: #C21622;
+        }
+
+        /* Menu Mobile */
+        .mobile-menu {
+            display: none;
+        }
+        
+        .mobile-menu.active {
+            display: block;
+        }
+        
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+        }
+        
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: #3C1414;
+            margin: 3px 0;
+            transition: 0.3s;
+        }
+
+        /* Responsividade */
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+            
+            .desktop-nav {
+                display: none;
+            }
+            
+            .mobile-menu {
+                position: absolute;
+                top: 100%;
+                left: 0;
+                width: 100%;
+                background-color: white;
+                box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+                padding: 1rem;
+            }
+            
+            .mobile-menu a {
+                display: block;
+                padding: 12px 0;
+                border-bottom: 1px solid #f0f0f0;
+            }
+            
+            .title {
+                font-size: 2.5rem !important;
+            }
+            
+            .subtitle {
+                font-size: 1.5rem !important;
+            }
+            
+            .product-card {
+                padding: 1rem !important;
+            }
+            
+            .product-image {
+                height: 200px;
+                margin: 0 auto 1rem;
+            }
+            
+            .section {
+                padding: 40px 0;
+            }
+            
+            .candy-decoration {
+                width: 15px;
+                height: 15px;
+            }
+            
+            .star {
+                font-size: 12px;
+            }
+            
+            .action-button {
+                font-size: 0.9rem;
+                padding: 10px 20px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .title {
+                font-size: 2rem !important;
+            }
+            
+            .subtitle {
+                font-size: 1.25rem !important;
+            }
+            
+            .product-image {
+                height: 180px;
+            }
+            
+            .action-button {
+                font-size: 0.85rem;
+                padding: 8px 16px;
+            }
+            
+            .feature-badge, .weight-badge {
+                font-size: 0.75rem;
+                padding: 3px 10px;
+            }
+        }
+
+    </style>
+</head>
+<body>
+    <!-- Decorative elements -->
+    <div class="candy-decoration candy-1"></div>
+    <div class="candy-decoration candy-2"></div>
+    <div class="candy-decoration candy-3"></div>
+    <div class="candy-decoration candy-4"></div>
+    
+    <div class="star star-1"><i class="fas fa-star"></i></div>
+    <div class="star star-2"><i class="fas fa-star"></i></div>
+    <div class="star star-3"><i class="fas fa-star"></i></div>
+    
+    <!-- Navigation -->
+    <nav class="fixed top-0 w-full bg-white bg-opacity-90 backdrop-blur-sm z-50 shadow-lg">
+        <div class="container mx-auto px-4 py-3">
+            <div class="flex justify-between items-center relative">
+                <div class="flex items-center">
+                    <img src="Doces&DocesdaRafa logo copia.png" alt="Logo" class="h-10 w-auto">
+                </div>
+                
+                <!-- Desktop Navigation -->
+                <div class="desktop-nav hidden md:flex space-x-4">
+                    <a href="#home" class="nav-link">Início</a>
+                    <a href="#produtos" class="nav-link">Produtos</a>
+                    <a href="#contato" class="nav-link">Contato</a>
+                    <a href="#sobre" class="nav-link">Sobre Nós</a>
+                </div>
+                
+                <!-- Mobile Hamburger -->
+                <div class="hamburger md:hidden" onclick="toggleMobileMenu()">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </div>
+                
+                <!-- Mobile Menu -->
+                <div class="mobile-menu md:hidden" id="mobileMenu">
+                    <a href="#home" class="nav-link" onclick="closeMobileMenu()">Início</a>
+                    <a href="#produtos" class="nav-link" onclick="closeMobileMenu()">Produtos</a>
+                    <a href="#contato" class="nav-link" onclick="closeMobileMenu()">Contato</a>
+                    <a href="#sobre" class="nav-link" onclick="closeMobileMenu()">Sobre Nós</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+    
+    <!-- Home Section -->
+    <section id="home" class="section flex items-center justify-center pt-20">
+        <div class="text-center px-4">
+            <img src="Doces&DocesdaRafa logo copia.png" alt="Doces & Doces da Rafa Logo" class="mx-auto mb-6 w-full max-w-xs md:max-w-md">
+            <h1 class="title text-4xl md:text-6xl lg:text-7xl mb-4">Cardápio</h1>
+            <h2 class="subtitle text-xl md:text-3xl lg:text-4xl mb-6">Delícias artesanais feitas com amor</h2>
+            <a href="#produtos" class="bg-gradient-to-r from-yellow-400 to-yellow-600 text-white px-6 py-3 md:px-8 md:py-4 rounded-full text-lg md:text-xl font-bold hover:from-yellow-500 hover:to-yellow-700 transition-all duration-300">
+                Ver Produtos
+            </a>
+        </div>
+    </section>
+    
+    <!-- Products Section -->
+    <section id="produtos" class="section">
+        <div class="container mx-auto px-4">
+            <h2 class="title text-3xl md:text-4xl lg:text-5xl text-center mb-12">Nossos Produtos</h2>
+            
+            <!-- Brownie -->
+            <div class="product-card p-4 md:p-8 mb-8 flex flex-col md:flex-row">
+                <div class="w-full md:w-1/2 md:pr-8 flex flex-col justify-center mb-4 md:mb-0">
+                    <h3 class="title text-2xl md:text-3xl lg:text-4xl mb-3">Brownie</h3>
+                    <p class="description text-base md:text-lg lg:text-xl mb-4">
+                        Brownie de cacau 50% macio por dentro e crocante por fora com uma deliciosa camada de brigadeiro de leite ninho e creme de avelã.
+                    </p>
+                    <div class="mb-4 flex flex-wrap">
+                        <span class="feature-badge">Cacau 50%</span>
+                        <span class="feature-badge">Macio por dentro</span>
+                        <span class="feature-badge">Crocante por fora</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg md:text-xl mr-2 text-yellow-700"><i class="fas fa-heart"></i></span>
+                        <span class="description text-sm md:text-base">Combinação perfeita com café ou sorvete</span>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center items-center">
+                    <img src="Brownie.png" alt="Brownie" class="product-image">
+                </div>
+            </div>
+            
+            <!-- Surpresa de Uva no Pote -->
+            <div class="product-card p-4 md:p-8 mb-8 flex flex-col md:flex-row">
+                <div class="w-full md:w-1/2 flex justify-center items-center mb-4 md:mb-0 order-1 md:order-1">
+                    <img src="SurpresadeUvaempote.png" alt="Surpresa de Uva no Pote" class="product-image">
+                </div>
+                <div class="w-full md:w-1/2 md:pl-8 flex flex-col justify-center order-2 md:order-2">
+                    <h3 class="subtitle text-2xl md:text-3xl lg:text-4xl mb-3">Surpresa de Uva no Pote</h3>
+                    <p class="description text-base md:text-lg lg:text-xl mb-4">
+                        Uma deliciosa base de brigadeiro cremoso de Chocolate ao Leite nobre, uma camada uvas selecionadas sem semente e uma camada do nosso delicioso creme.
+                    </p>
+                    <div class="mb-4">
+                        <span class="weight-badge">Porção de 250ml</span>
+                    </div>
+                    <div class="flex items-center mb-2">
+                        <span class="text-lg md:text-xl mr-2 text-purple-800"><i class="fas fa-check-circle"></i></span>
+                        <span class="description text-sm md:text-base">Uvas selecionadas sem sementes</span>
+                    </div>
+                    <div class="flex items-center">
+                        <span class="text-lg md:text-xl mr-2 text-purple-800"><i class="fas fa-check-circle"></i></span>
+                        <span class="description text-sm md:text-base">Chocolate ao leite nobre</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Vulcão dos Deuses -->
+            <div class="product-card p-4 md:p-8 mb-8 flex flex-col md:flex-row">
+                <div class="w-full md:w-1/2 md:pr-8 flex flex-col justify-center mb-4 md:mb-0">
+                    <h3 class="title text-2xl md:text-3xl lg:text-4xl mb-3">Vulcão dos Deuses</h3>
+                    <p class="description text-base md:text-lg lg:text-xl mb-6">
+                        Massa branca artesanal, fofinha e delicada, coberta por uma generosa cascata de brigadeiro Leite Ninho com creme de avelã.
+                    </p>
+                    <div class="flex">
+                        <span class="text-xl md:text-2xl text-yellow-600 mr-1"><i class="fas fa-star"></i></span>
+                        <span class="text-xl md:text-2xl text-yellow-600 mr-1"><i class="fas fa-star"></i></span>
+                        <span class="text-xl md:text-2xl text-yellow-600 mr-1"><i class="fas fa-star"></i></span>
+                        <span class="text-xl md:text-2xl text-yellow-600 mr-1"><i class="fas fa-star"></i></span>
+                        <span class="text-xl md:text-2xl text-yellow-600"><i class="fas fa-star"></i></span>
+                    </div>
+                </div>
+                <div class="w-full md:w-1/2 flex justify-center items-center">
+                    <img src="VulcãodosDeusesNinhocomcremedeavelã.png" alt="Vulcão dos Deuses" class="product-image">
+                </div>
+            </div>
+            
+            <!-- Brigadeiros -->
+            <div class="product-card p-4 md:p-8 mb-8">
+                <h3 class="title text-2xl md:text-3xl lg:text-4xl mb-6 text-center">Brigadeiros Especiais</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-8">
+                    <div class="flex items-center">
+                        <img src="Brigadeirooriginal.png" alt="Brigadeiro Tradicional" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full mr-3 md:mr-4 flex-shrink-0">
+                        <div>
+                            <h4 class="subtitle text-lg md:text-xl mb-1">Brigadeiro Tradicional</h4>
+                            <p class="description text-xs md:text-sm mb-2">Brigadeiro com granulado de Chocolate ao leite.</p>
+                            <span class="weight-badge text-xs">25g</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <img src="Brigadeirãochokito.png" alt="Brigadeirão Chokito" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full mr-3 md:mr-4 flex-shrink-0">
+                        <div>
+                            <h4 class="subtitle text-lg md:text-xl mb-1">Brigadeirão Chokito</h4>
+                            <p class="description text-xs md:text-sm mb-2">Brigadeirão chokito com textura crocante.</p>
+                            <span class="weight-badge text-xs">50g</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <img src="BrigadeirodeMoranguinho.png" alt="Brigadeiro Moranguinho" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full mr-3 md:mr-4 flex-shrink-0">
+                        <div>
+                            <h4 class="subtitle text-lg md:text-xl mb-1">Brigadeiro Moranguinho</h4>
+                            <p class="description text-xs md:text-sm mb-2">Brigadeiro moranguinho com sabor suave e delicado.</p>
+                            <span class="weight-badge text-xs">25g</span>
+                        </div>
+                    </div>
+                    <div class="flex items-center">
+                        <img src="BrigadeiroMaracujácomRapasdeChocolateBranco.png" alt="Brigadeiro de Maracujá" class="w-16 h-16 md:w-24 md:h-24 object-cover rounded-full mr-3 md:mr-4 flex-shrink-0">
+                        <div>
+                            <h4 class="subtitle text-lg md:text-xl mb-1">Brigadeiro de Maracujá</h4>
+                            <p class="description text-xs md:text-sm mb-2">Brigadeiro de Maracujá com granulado de Chocolate Branco.</p>
+                            <span class="weight-badge text-xs">25g</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Copos da Felicidade -->
+            <div class="product-card p-4 md:p-8 mb-8">
+                <h3 class="title text-2xl md:text-3xl lg:text-4xl mb-6 text-center">Copos da Felicidade</h3>
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+                    <div class="text-center">
+                        <img src="CopodaFelicidadeOuroBranco-Moderno.png" alt="Copo da Felicidade - Ouro Branco" class="w-full h-32 md:h-48 object-cover rounded-lg mb-3 md:mb-4">
+                        <h4 class="subtitle text-lg md:text-xl mb-2">Ouro Branco</h4>
+                        <p class="description text-xs md:text-sm">Feito com brigadeiro cremoso de Leite Ninho e brigadeiro cremoso de cacau 50% e bombons chocolate Ouro Branco entre as camadas.</p> 
+                    </div>
+                    <div class="text-center">
+                        <img src="CopodaFelicidadeBrownie.png" alt="Copo da Felicidade - Brownie" class="w-full h-32 md:h-48 object-cover rounded-lg mb-3 md:mb-4">
+                        <h4 class="subtitle text-lg md:text-xl mb-2">Brownie</h4>
+                        <p class="description text-xs md:text-sm">Feito com brigadeiro cremoso de Leite Ninho e brigadeiro cremoso de cacau 50% e creme de avelã, com nosso delicioso brownie.</p>
+                    </div>
+                    <div class="text-center">
+                       <img src="CopodaFelicidadedeMorangocomgeleiacaseirademorango.png" alt="Copo da Felicidade de Morango" class="w-full h-32 md:h-48 object-cover rounded-lg mb-3 md:mb-4">
+                        <h4 class="subtitle text-lg md:text-xl mb-2">Morango</h4>
+                        <p class="description text-xs md:text-sm">Feito com creme nuvem de Leite Ninho, brigadeiro cremoso de Leite Ninho e nossa geleia de morango totalmente artesanal entre suas camadas.</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="CopodaFelicidadeTropical-CompotaartesanaldeAbacaxi.png" alt="Copo da Felicidade - Tropical" class="w-full h-32 md:h-48 object-cover rounded-lg mb-3 md:mb-4">
+                        <h4 class="subtitle text-lg md:text-xl mb-2">Tropical</h4>
+                        <p class="description text-xs md:text-sm">Feito com creme nuvem de Leite Ninho, brigadeiro cremoso de Leite Ninho e compota de abacaxi caseira entre as camadas.</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="CopodaFelicidade-TortadeLimãocomFarofinhaamanteigada.png" alt="Copo da Felicidade - Torta de Limão" class="w-full h-32 md:h-48 object-cover rounded-lg mb-3 md:mb-4">
+                        <h4 class="subtitle text-lg md:text-xl mb-2">Torta de Limão</h4>
+                        <p class="description text-xs md:text-sm">Feito com nosso delicioso pavê de limão com farofinha de biscoito amanteigado CROCANTE.</p>
+                    </div>
+                    <div class="text-center">
+                        <img src="CopodaFelicidade-TortinhadeMorangocomFarofinhaamanteigada.png" alt="Copo da Felicidade - Tortinha de Morango" class="w-full h-32 md:h-48 object-cover rounded-lg mb-3 md:mb-4">
+                        <h4 class="subtitle text-lg md:text-xl mb-2">Tortinha de Morango</h4>
+                        <p class="description text-xs md:text-sm">Feito com nosso delicioso pavê de morango com farofinha de biscoito amanteigado CROCANTE.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Contact Section -->
+    <section id="contato" class="section bg-gradient-to-r from-yellow-100 to-blue-100">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="title text-3xl md:text-4xl lg:text-5xl mb-8">Entre em Contato</h2>
+            <p class="description text-lg md:text-xl mb-8">Faça seu pedido agora mesmo!</p>
+            
+            <div class="flex flex-col md:flex-row justify-center items-center gap-4">
+                <a href="http://wa.me/5582996754743" target="_blank" class="action-button whatsapp">
+                    <i class="fab fa-whatsapp mr-2"></i>
+                    Para Pedidos e Encomendas
+                </a>
+                <a href="https://www.ifood.com.br" target="_blank" class="action-button ifood">
+                    <i class="fas fa-motorcycle mr-2"></i>
+                    Pedir pelo iFood: Em Breve!
+                </a>
+            </div>
+            
+            <div class="mt-8 text-center">
+                <div class="flex flex-col md:flex-row justify-center items-center gap-4 md:gap-8">
+                    <div class="flex items-center">
+                        <a href="tel:82996754743" 
+                        style="display: inline-flex; align-items: center; gap: 8px; padding: 10px 20px; 
+                        background-color: #007BFF; color: white; text-decoration: none; border-radius: 25px; 
+                        font-size: 1.1rem; font-weight: bold;">
+                        <i class="fas fa-phone-alt"></i> Ligar para o SAC
+                    </a>
+                    </div>
+                    <div class="flex items-center">
+                        <a href="https://www.instagram.com/docesdocesdarafa" target="_blank" rel="noopener noreferrer" 
+                        style="background: linear-gradient(45deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); 
+                        color: white; padding: 10px 20px; text-decoration: none; border-radius: 25px; 
+                        display: inline-flex; align-items: center; gap: 8px;">
+                        <i class="fab fa-instagram"></i> Siga nosso Instagram
+                    </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- About Section -->
+    <section id="sobre" class="section">
+        <div class="container mx-auto px-4 text-center">
+            <h2 class="title text-3xl md:text-4xl lg:text-5xl mb-8">Sobre Nós</h2>
+            <div class="max-w-4xl mx-auto">
+                <p class="description text-base md:text-lg lg:text-xl mb-6">
+                    Somos a <strong>Doces & Doces da Rafa</strong>, uma confeitaria artesanal dedicada a criar momentos especiais através de sabores únicos e inesquecíveis.
+                </p>
+                <p class="description text-base md:text-lg mb-6">
+                    Cada doce é preparado com muito amor, utilizando ingredientes selecionados e receitas desenvolvidas com carinho. Nossa missão é adoçar a vida das pessoas com criações que tocam o coração.
+                </p>
+                <p class="description text-base md:text-lg">
+                    Venha conhecer nossos sabores e se apaixonar por cada mordida!
+                </p>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-8">
+        <div class="container mx-auto px-4 text-center">
+            <img src="Doces&DocesdaRafa logo copia.png" alt="Logo" class="h-16 w-auto mx-auto mb-4">
+            <p class="text-sm md:text-base mb-4">© 2025 Doces & Doces da Rafa. Todos os direitos reservados.</p>
+            <div class="flex justify-center space-x-6">
+                <a href="https://www.instagram.com/docesdocesdarafa" target="_blank" class="text-2xl hover:text-yellow-400 transition-colors">
+                    <i class="fab fa-instagram"></i>
+                </a>
+                <a href="https://wa.me/5582996754743" target="_blank" class="text-2xl hover:text-green-400 transition-colors">
+                    <i class="fab fa-whatsapp"></i>
+                </a>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        function toggleMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.toggle('active');
+        }
+        
+        function closeMobileMenu() {
+            const mobileMenu = document.getElementById('mobileMenu');
+            mobileMenu.classList.remove('active');
+        }
+        
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+        
+        // Close mobile menu when clicking outside
+        document.addEventListener('click', function(event) {
+            const mobileMenu = document.getElementById('mobileMenu');
+            const hamburger = document.querySelector('.hamburger');
+            
+            if (!mobileMenu.contains(event.target) && !hamburger.contains(event.target)) {
+                mobileMenu.classList.remove('active');
+            }
+        });
+    </script>
+</body>
+</html>
+
